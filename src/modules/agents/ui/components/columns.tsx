@@ -38,17 +38,17 @@ export const columns: ColumnDef<AgentGetOne>[] = [
         variant="outline"
       >
         <VideoIcon className="text-blue-700" />
-        5 meetings
+       {row.original.meetingCount} {row.original.meetingCount === 1 ? "meeting" : "meetings"}
       </Badge>
     ),
   },
-  {
-    accessorKey: "updatedAt",
-    header: "Updated At",
-    cell: ({ row }) => (
-      <span className="text-sm text-muted-foreground">
-        {new Date(row.original.updatedAt).toLocaleDateString()}
-      </span>
-    ),
-  },
+  // {
+  //   accessorKey: "updatedAt",
+  //   header: "Updated At",
+  //   cell: ({ row }) => (
+  //     <span className="text-sm text-muted-foreground">
+  //       {new Date(row.original.updatedAt).toLocaleDateString()}
+  //     </span>
+  //   ),
+  // },
 ];
