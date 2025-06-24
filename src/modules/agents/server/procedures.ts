@@ -31,7 +31,7 @@ export const agentsRouter = createTRPCRouter({
         })
         )
         .query(async ({ ctx, input }) => {
-            const {search,page , pageSize }=input
+            const { search, page, pageSize } = input
             const data = await db
                 .select(
                     {
@@ -46,11 +46,11 @@ export const agentsRouter = createTRPCRouter({
                         search ? ilike(agents.name, `%${search}%`) : undefined
                     )
                 )
-                .orderBy(desc(agents.createdAt),desc(agents.id))
+                .orderBy(desc(agents.createdAt), desc(agents.id))
                 .limit(pageSize)
-                .offset((page - 1)* pageSize);
+                .offset((page - 1) * pageSize);
 
-                const total = await db
+            const [total] = await db
                 .select({ count: count() })
                 .from(agents)
                 .where(
@@ -60,12 +60,12 @@ export const agentsRouter = createTRPCRouter({
                     )
                 );
 
-                const totalPages = Math.ceil(total.count /pageSize);
+            const totalPages = Math.ceil(total.count / pageSize);
 
             return {
                 items: data,
-                total:total.count,
-                page,
+                total: total.count,
+                totalPages,
             }
         }),
     create: protectedProcedure.input(agentsInsertSchema).mutation(async ({ input, ctx }) => {
