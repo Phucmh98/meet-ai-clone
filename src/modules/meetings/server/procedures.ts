@@ -7,6 +7,17 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@
 import { TRPCError } from "@trpc/server";
 
 export const meetingsRouter = createTRPCRouter({
+    create: protectedProcedure.input(agentsInsertSchema).mutation(async ({ input, ctx }) => {
+            const [createdAgent] = await db
+                .insert(agents)
+                .values({
+                    ...input,
+                    userId: ctx.auth.user.id,
+                })
+                .returning();
+    
+            return createdAgent;
+        })
     //TODO: Change getMany to use protectedProcedure
     getOne: protectedProcedure.input(z.object({
         id: z.string()
