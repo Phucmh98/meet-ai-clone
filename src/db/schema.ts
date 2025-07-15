@@ -58,7 +58,7 @@ export const agents = pgTable("agents", {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
-export const meetingStatus = pgEnum('meeting_status',["upcoming", "active","progressing", "completed", "cancelled"]);
+export const meetingStatus = pgEnum('meeting_status', ["upcoming", "active", "progressing", "completed", "cancelled"]);
 
 export const meetings = pgTable("meetings", {
   id: text('id').primaryKey().$defaultFn(() => nanoid()),
@@ -68,9 +68,9 @@ export const meetings = pgTable("meetings", {
   status: meetingStatus('status').notNull().default('upcoming'),
   startedAt: timestamp('started_at'),
   endedAt: timestamp('ended_at'),
-  transcriptUrl:text('transcript_url'),
-  recordingUrl:text('recording_url'),
-  summary:text('summary'),
+  transcriptUrl: text('transcript_url'),
+  recordingUrl: text('recording_url'),
+  summary: text('summary'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
