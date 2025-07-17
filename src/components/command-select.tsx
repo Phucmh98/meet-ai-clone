@@ -32,7 +32,7 @@ export const CommandSelect = ({
   isSearchable,
   className,
 }: Props) => {
-  console.log("CommandSelect rendered with options:", options);
+  console.log("options:", options);
   const [open, setOpen] = useState(false);
   const selectedOption = options.find((option) => option.value === value);
   return (
@@ -50,7 +50,11 @@ export const CommandSelect = ({
         <div>{selectedOption?.children ?? placeholder}</div>
         <ChevronDownIcon className="ml-2 h-4 w-4" />
       </Button>
-      <CommandResponsiveDialog open={open} onOpenChange={setOpen}>
+      <CommandResponsiveDialog
+        open={open}
+        onOpenChange={setOpen}
+        shouldFilter={!onSearch}
+      >
         <CommandInput placeholder="Search..." onValueChange={onSearch} />
         <CommandList>
           <CommandEmpty>
